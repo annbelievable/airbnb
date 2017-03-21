@@ -11,6 +11,9 @@ gem 'clearance'
 #
 gem 'figaro'
 
+# to authenticate user between apps
+gem 'omniauth-facebook'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
