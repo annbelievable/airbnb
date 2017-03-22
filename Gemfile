@@ -15,6 +15,14 @@ gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-facebook'
 
+# scaffold and nested scaffold
+gem 'scaffold'
+gem 'nested_scaffold'
+
+# for tagging ablility
+gem 'acts-as-taggable-on', '~> 4.0'
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
