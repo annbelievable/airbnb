@@ -5,13 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-#Use this gem for user management
+# Use this gem for user management
 gem 'clearance'
 
-#
+# for security
 gem 'figaro'
 
-# to authenticate user between apps
+# to authenticate user between apps and especially facebook
+gem 'omniauth'
 gem 'omniauth-facebook'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

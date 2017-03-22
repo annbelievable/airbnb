@@ -15,4 +15,8 @@ Rails.application.routes.draw do
 
   #added routes
   root 'users#home'
+
+  #for oauth facebook login
+  #get '/auth/:provider/callback', to: 'sessions#create'
+  get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 end
