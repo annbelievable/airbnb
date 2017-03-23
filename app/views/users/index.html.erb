@@ -1,1 +1,30 @@
 <h1>All the users' page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Phone Number</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% n=1 %>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= n %></td>
+        <td><%= user.username %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'Show', user_path(user) %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <% n+=1 %>
+    <% end %>
+  </tbody>
+</table>
+<div><%= paginate @users %></div>

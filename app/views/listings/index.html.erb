@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>No.</th>
       <th>Name</th>
       <th>Location</th>
       <th>Description</th>
@@ -14,8 +15,10 @@
   </thead>
 
   <tbody>
+    <% n=1 %>
     <% @listings.each do |listing| %>
       <tr>
+        <td><%= n %></td>
         <td><%= listing.name %></td>
         <td><%= listing.location %></td>
         <td><%= listing.description %></td>
@@ -24,10 +27,14 @@
         <td><%= link_to 'Edit', edit_user_listing_path(listing.user, listing) %></td>
         <td><%= link_to 'Destroy', [listing.user, listing], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% n+=1 %>
     <% end %>
   </tbody>
 </table>
+<div><%= paginate @listings %></div>
 
 <br>
 
-<%= link_to 'New Listing', new_user_listing_path(params[:user_id]) %>
+<% if params[:user_id] %>
+  <%= link_to 'New Listing', new_user_listing_path(params[:user_id]) %>
+<% end %>

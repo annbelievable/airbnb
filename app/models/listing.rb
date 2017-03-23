@@ -6,4 +6,8 @@ class Listing < ApplicationRecord
   validates :price, presence: true
   validates :user_id, presence: true
   belongs_to :user
+
+  #pagination
+  paginates_per 20
+  #max_paginates_per 20
 end

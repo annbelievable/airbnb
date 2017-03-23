@@ -30,4 +30,9 @@ class User < ApplicationRecord
   end
 
   has_many :listings
+
+  #pagination
+  paginates_per 10
+  #max_paginates_per 20
+
 end

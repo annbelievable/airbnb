@@ -1,10 +1,15 @@
 class ListingsController < ApplicationController
-  before_action :set_listings
+  before_action :set_listings, except: [:index]
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
   # GET users/1/listings
   def index
-    @listings = @user.listings
+    if params[:user_id]
+      @user = User.find(params[:user_id])
+      @listings = @user.listings
+    else
+      @listings = Listing.all.page params[:page]
+    end
   end
 
   # GET users/1/listings/1
@@ -22,7 +27,6 @@ class ListingsController < ApplicationController
 
   # POST users/1/listings
   def create
-    byebug
     @listing = @user.listings.build(listing_params)
 
     if @listing.save

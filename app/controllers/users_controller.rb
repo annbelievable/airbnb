@@ -11,9 +11,11 @@ class UsersController < Clearance::UsersController
   end
 
   def index
+    @users = User.all.page params[:page]
   end
 
   def show
+    @user = User.find(params[:id])
   end
 
   def edit
@@ -24,7 +26,6 @@ class UsersController < Clearance::UsersController
 
   def destroy
   end
-
 
   private
   def user_params
