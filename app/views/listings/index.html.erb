@@ -2,39 +2,54 @@
 
 <h1>Listings</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>No.</th>
-      <th>Name</th>
-      <th>Location</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% if @listings.count == 0 %>
+  <p>No listing yet</p>
+<% else %>
 
-  <tbody>
-    <% n=1 %>
-    <% @listings.each do |listing| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= n %></td>
-        <td><%= listing.name %></td>
-        <td><%= listing.location %></td>
-        <td><%= listing.description %></td>
-        <td><%= listing.price %></td>
-        <td><%= link_to 'Show', [listing.user, listing] %></td>
-        <td><%= link_to 'Edit', edit_user_listing_path(listing.user, listing) %></td>
-        <td><%= link_to 'Destroy', [listing.user, listing], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Hosts</th>
+        <th colspan="3"></th>
       </tr>
-      <% n+=1 %>
-    <% end %>
-  </tbody>
-</table>
-<div><%= paginate @listings %></div>
+    </thead>
+    <tbody>
+      <div class="autopagerize_page_element">
+
+      <% n=1 %>
+      <% @listings.each do |listing| %>
+        <tr>
+
+          <td><%= n %></td>
+          <td><%= listing.name %></td>
+          <td><%= listing.location %></td>
+          <td><%= listing.description %></td>
+          <td><%= listing.price %></td>
+          <td><%= listing.user.username %></td>
+          <td><%= link_to 'Show', [listing.user, listing] %></td>
+          <% if listing.user.id == current_user.id %>
+            <td><%= link_to 'Edit', edit_user_listing_path(listing.user, listing) %></td>
+            <td><%= link_to 'Destroy', [listing.user, listing], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+          
+        </tr>
+        <% n+=1 %>
+      <% end %>
+
+      </div>
+    </tbody>
+  </table>
+
+  <div><%= paginate @listings %></div>
+<% end %>
 
 <br>
 
-<% if params[:user_id] %>
-  <%= link_to 'New Listing', new_user_listing_path(params[:user_id]) %>
+<% if logged_in? %>
+  <%= link_to 'New Listing', new_user_listing_path(current_user.id) %>
 <% end %>

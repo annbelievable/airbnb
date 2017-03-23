@@ -20,5 +20,12 @@
   <%= @listing.price %>
 </p>
 
-<%= link_to 'Edit', edit_user_listing_path(@listing.user, @listing) %> |
-<%= link_to 'Back', user_listings_path(@listing.user) %>
+<% if @listing.user.id == current_user.id %>
+  <%= link_to 'Edit', edit_user_listing_path(@listing.user, @listing) %> |
+<% end %>
+
+<% if logged_in? %>
+  <%= link_to 'Back to my listings', user_listings_path(current_user) %>
+<% else %>
+  <%= link_to 'Back to listings', listings_path  %>
+<% end %>

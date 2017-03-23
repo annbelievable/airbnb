@@ -1,1 +1,17 @@
 <h1>User profile page</h1>
+
+<p>Name:</p>
+<p><%= @user.username %></p>
+<p>Phone number:</p>
+<% if @user.phone_number %>
+  <p><%= @user.phone_number %></p>
+<% else %>
+  <p>Unavailable</p>
+<% end %>
+<p>Email:</p>
+<p><%= @user.email %></p>
+
+<% if params[:id].to_i == current_user.id %>
+  <%= link_to 'Edit', edit_user_path(current_user) %>
+  <%= link_to 'Destroy', current_user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

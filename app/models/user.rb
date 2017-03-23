@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validates :username, uniqueness: true
   validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :password, presence: true, length: { minimum: 6 }
+  # validates :role, inclusion: { in: ["superadmin", "moderator", "customer"] }
+  enum role: [:superadmin, :moderator, :customer]
 
   #to confirm the user password when sign in
   # validates_confirmation_of :password
@@ -18,7 +20,6 @@ class User < ApplicationRecord
   has_many :authentications, :dependent => :destroy
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
-    byebug
     user = User.create!(username: auth_hash["extra"]["raw_info"]["name"], email: auth_hash["extra"]["raw_info"]["email"], password: SecureRandom.base64(5))
     user.authentications << (authentication)
     return user
@@ -33,6 +34,4 @@ class User < ApplicationRecord
 
   #pagination
   paginates_per 10
-  #max_paginates_per 20
-
 end

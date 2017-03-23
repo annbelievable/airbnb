@@ -6,7 +6,7 @@ class ListingsController < ApplicationController
   def index
     if params[:user_id]
       @user = User.find(params[:user_id])
-      @listings = @user.listings
+      @listings = @user.listings.page params[:page]
     else
       @listings = Listing.all.page params[:page]
     end

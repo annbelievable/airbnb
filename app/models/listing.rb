@@ -9,5 +9,4 @@ class Listing < ApplicationRecord
 
   #pagination
   paginates_per 20
-  #max_paginates_per 20
 end

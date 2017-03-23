@@ -1,4 +1,5 @@
 class UsersController < Clearance::UsersController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def create
     @user = user_from_params
@@ -15,10 +16,13 @@ class UsersController < Clearance::UsersController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
+    if @user.id == current_user.id
+    else
+      redirect_to user_path(current_user)
+    end
   end
 
   def update
@@ -28,6 +32,10 @@ class UsersController < Clearance::UsersController
   end
 
   private
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(:email, :password, :username)
   end
