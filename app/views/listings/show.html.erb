@@ -20,5 +20,5 @@
   <%= @listing.price %>
 </p>
 
-<%= link_to 'Edit', edit_listing_path(@listing) %> |
-<%= link_to 'Back', listings_path %>
+<%= link_to 'Edit', edit_user_listing_path(@listing.user, @listing) %> |
+<%= link_to 'Back', user_listings_path(@listing.user) %>

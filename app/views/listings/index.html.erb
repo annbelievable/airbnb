@@ -20,9 +20,9 @@
         <td><%= listing.location %></td>
         <td><%= listing.description %></td>
         <td><%= listing.price %></td>
-        <td><%= link_to 'Show', listing %></td>
-        <td><%= link_to 'Edit', edit_listing_path(listing) %></td>
-        <td><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', [listing.user, listing] %></td>
+        <td><%= link_to 'Edit', edit_user_listing_path(listing.user, listing) %></td>
+        <td><%= link_to 'Destroy', [listing.user, listing], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Listing', new_listing_path %>
+<%= link_to 'New Listing', new_user_listing_path(params[:user_id]) %>

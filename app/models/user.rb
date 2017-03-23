@@ -18,7 +18,8 @@ class User < ApplicationRecord
   has_many :authentications, :dependent => :destroy
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
-    user = User.create!(username: auth_hash["name"], email: auth_hash["extra"]["raw_info"]["email"], password: SecureRandom.base64(5))
+    byebug
+    user = User.create!(username: auth_hash["extra"]["raw_info"]["name"], email: auth_hash["extra"]["raw_info"]["email"], password: SecureRandom.base64(5))
     user.authentications << (authentication)
     return user
   end
@@ -27,4 +28,6 @@ class User < ApplicationRecord
     x = self.authentications.where(:provider => :facebook).first
     return x.token unless x.nil?
   end
+
+  has_many :listings
 end

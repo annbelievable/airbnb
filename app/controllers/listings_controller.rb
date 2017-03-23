@@ -1,73 +1,64 @@
 class ListingsController < ApplicationController
+  before_action :set_listings
   before_action :set_listing, only: [:show, :edit, :update, :destroy]
 
-  # GET /listings
-  # GET /listings.json
+  # GET users/1/listings
   def index
-    @listings = Listing.all
+    @listings = @user.listings
   end
 
-  # GET /listings/1
-  # GET /listings/1.json
+  # GET users/1/listings/1
   def show
   end
 
-  # GET /listings/new
+  # GET users/1/listings/new
   def new
-    @listing = Listing.new
+    @listing = @user.listings.build
   end
 
-  # GET /listings/1/edit
+  # GET users/1/listings/1/edit
   def edit
   end
 
-  # POST /listings
-  # POST /listings.json
+  # POST users/1/listings
   def create
-    @listing = Listing.new(listing_params)
+    byebug
+    @listing = @user.listings.build(listing_params)
 
-    respond_to do |format|
-      if @listing.save
-        format.html { redirect_to @listing, notice: 'Listing was successfully created.' }
-        format.json { render :show, status: :created, location: @listing }
-      else
-        format.html { render :new }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
-      end
+    if @listing.save
+      redirect_to([@listing.user, @listing], notice: 'Listing was successfully created.')
+    else
+      render action: 'new'
     end
   end
 
-  # PATCH/PUT /listings/1
-  # PATCH/PUT /listings/1.json
+  # PUT users/1/listings/1
   def update
-    respond_to do |format|
-      if @listing.update(listing_params)
-        format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
-        format.json { render :show, status: :ok, location: @listing }
-      else
-        format.html { render :edit }
-        format.json { render json: @listing.errors, status: :unprocessable_entity }
-      end
+    if @listing.update_attributes(listing_params)
+      redirect_to([@listing.user, @listing], notice: 'Listing was successfully updated.')
+    else
+      render action: 'edit'
     end
   end
 
-  # DELETE /listings/1
-  # DELETE /listings/1.json
+  # DELETE users/1/listings/1
   def destroy
     @listing.destroy
-    respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to user_listings_url(@user)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_listing
-      @listing = Listing.find(params[:id])
+    def set_listings
+      @user = User.find(params[:user_id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_listing
+      @listing = @user.listings.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
     def listing_params
       params.require(:listing).permit(:name, :location, :description, :price)
     end
