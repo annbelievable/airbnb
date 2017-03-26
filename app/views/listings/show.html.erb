@@ -1,5 +1,40 @@
 <p id="notice"><%= notice %></p>
 
+<p><strong>Photos</strong></p>
+<% if @listing.photos.count > 0 %>
+
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <% n = 1 %>
+      <% (@listing.photos.count - 1).times do |x| %>
+        <li data-target="#carousel-example-generic" data-slide-to="#{n}"></li>
+        <% n+=1 %>
+      <% end %>
+    </ol>
+    <div class="carousel-inner">
+      <div class="item active">
+          <%= image_tag @listing.photos.first.url(:thumb).to_s, class: "img-response" %>
+      </div>
+      <% if @listing.photos.count > 1 %>
+        <% @listing.photos[1..-1].each do |photo| %>
+          <div class="item">
+            <%= image_tag photo.url(:thumb).to_s, class: "img-response" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+
+<% else %>
+  <p>Photos unavailable</p>
+<% end %>
 <p>
   <strong>Name:</strong>
   <%= @listing.name %>
@@ -19,6 +54,12 @@
   <strong>Price:</strong>
   <%= @listing.price %>
 </p>
+
+<% if @listing.tags.any? %>
+  <div><%= render @listing.tags %></div>
+<% end %>
+
+<br>
 
 <% if @listing.user.id == current_user.id %>
   <%= link_to 'Edit', edit_user_listing_path(@listing.user, @listing) %> |

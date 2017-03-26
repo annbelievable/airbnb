@@ -19,4 +19,7 @@ Rails.application.routes.draw do
 
   #added a route for all the listings
   get "/listings" => "listings#index"
+  get "/listing" => "listing#show"
+  #for tagging
+  resources :tags
 end

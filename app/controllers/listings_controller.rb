@@ -10,6 +10,11 @@ class ListingsController < ApplicationController
     else
       @listings = Listing.all.page params[:page]
     end
+    if params[:tag]
+      @Listings = Listing.tagged_with(params[:tag])
+    else
+      @Listings = Listing.all
+    end
   end
 
   # GET users/1/listings/1
@@ -52,6 +57,14 @@ class ListingsController < ApplicationController
     redirect_to user_listings_url(@user)
   end
 
+  def tagged
+    if params[:tag].present?
+      @listings = Listing.tagged_with(params[:tag])
+    else
+      @listings = Listing.all
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listings
@@ -64,6 +77,6 @@ class ListingsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def listing_params
-      params.require(:listing).permit(:name, :location, :description, :price)
+      params.require(:listing).permit(:name, :location, :description, :price, :tag_list, photos: [])
     end
 end

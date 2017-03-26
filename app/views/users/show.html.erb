@@ -1,13 +1,24 @@
 <h1>User profile page</h1>
 
+<p><strong>Profile photo</strong></p>
+<% if @user.photo %>
+  <div>
+    <%= @user.photo.url(:thumb).to_s %>
+  </div>
+<% else %>
+  <p>Unavailable</p>
+<% end %>
+
 <p>Name:</p>
 <p><%= @user.username %></p>
+
 <p>Phone number:</p>
 <% if @user.phone_number %>
   <p><%= @user.phone_number %></p>
 <% else %>
   <p>Unavailable</p>
 <% end %>
+
 <p>Email:</p>
 <p><%= @user.email %></p>
 
