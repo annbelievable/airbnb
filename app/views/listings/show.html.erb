@@ -59,6 +59,18 @@
   <div><%= render @listing.tags %></div>
 <% end %>
 
+<h1>Book now</h1>
+<%= render '/reservations/form', reservation: @reservation %>
+
+
+
+
+
+
+
+
+
+
 <br>
 
 <% if @listing.user.id == current_user.id %>

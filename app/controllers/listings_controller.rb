@@ -19,6 +19,7 @@ class ListingsController < ApplicationController
 
   # GET users/1/listings/1
   def show
+    @reservation = Reservation.new
   end
 
   # GET users/1/listings/new
@@ -53,7 +54,6 @@ class ListingsController < ApplicationController
   # DELETE users/1/listings/1
   def destroy
     @listing.destroy
-
     redirect_to user_listings_url(@user)
   end
 
@@ -68,7 +68,7 @@ class ListingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_listings
-      @user = User.find(params[:user_id])
+        @user = User.find(params[:user_id])
     end
 
     def set_listing

@@ -1,4 +1,7 @@
 class TagsController < ApplicationController
+
+  before_action :set_tag, only: [:show, :edit, :update, :destroy]
+
   def index
     @tags = ActsAsTaggableOn::Tag.all
   end
@@ -7,7 +10,6 @@ class TagsController < ApplicationController
     @tag =  ActsAsTaggableOn::Tag.find(params[:id])
     @listings = Listing.tagged_with(@tag.name)
   end
-  before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   def edit
   end

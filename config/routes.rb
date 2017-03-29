@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
     resources :listings
+    resources :reservations
   end
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
@@ -19,7 +20,10 @@ Rails.application.routes.draw do
 
   #added a route for all the listings
   get "/listings" => "listings#index"
-  get "/listing" => "listing#show"
+  get "/listing/:id" => "listings#show"
+
+  #for creating reservations
+  post '/users/:user_id/reservations' => 'reservations#create', :as => :create_reservation
   #for tagging
   resources :tags
 end

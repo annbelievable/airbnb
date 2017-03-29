@@ -7,4 +7,17 @@ module UsersHelper
   def logged_in?
     !current_user.nil?
   end
+
+  def permission?
+    if current_user.role == :user
+
+    end
+    if current_user.role == :moderator
+
+    end
+    if current_user.role == :admin
+
+    end
+  end
+  
 end
