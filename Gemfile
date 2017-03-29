@@ -29,6 +29,12 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem "fog-aws"
 
+#for braintree payment
+gem 'braintree'
+
+#for viewing email
+gem "letter_opener", :group => :development
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record

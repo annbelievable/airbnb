@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
+
   resource :session, controller: "clearance/sessions", only: [:create]
   resources :users, except: [:new, :create] do
     resource :password,
@@ -8,6 +10,9 @@ Rails.application.routes.draw do
     resources :listings
     resources :reservations
   end
+
+  #for tagging
+  resources :tags
 
   get "/sign_in" => "clearance/sessions#new", as: "sign_in"
   delete "/sign_out" => "clearance/sessions#destroy", as: "sign_out"
@@ -24,6 +29,9 @@ Rails.application.routes.draw do
 
   #for creating reservations
   post '/users/:user_id/reservations' => 'reservations#create', :as => :create_reservation
-  #for tagging
-  resources :tags
+
+  #for braintree, payment
+  get 'braintree/new'
+  post 'braintree/checkout'
+
 end
