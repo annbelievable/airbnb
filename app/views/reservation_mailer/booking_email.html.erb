@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Dear <%= @host.username %>,</h1>
+    <br>
+    <br>
+    <br>
+
+    <p>
+      Congratulations! You have received a booking from <%= @customer.username %>
+    </p>
+    <p>
+      Reservation id is: <%= @reservation.id %>
+    </p>
+    <p>
+      You can see details of your new reservation here: <%= @url %>
+    </p>
+
+    <br>
+    <br>
+    <br>
+
+    <p>
+      From: AirBnB
+    </p>
+  </body>
+</html>

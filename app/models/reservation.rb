@@ -12,7 +12,6 @@ class Reservation < ApplicationRecord
   end
 
   def check_availability
-    byebug
     listing = Listing.find(self.listing_id)
     listing.reservations.each do |r|
       if self.overlaps?(r, self)

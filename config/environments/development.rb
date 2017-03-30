@@ -12,6 +12,22 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  #Preview mails in browser
+  # config.action_mailer.delivery_method = :letter_opener
+
+  #gmail
+  config.action_mailer.delivery_method = :smtp
+  #do i need this:
+  config.action_mailer.smtp_settings = {
+    domain:               'localhost:3000',
+    address:              "smtp.gmail.com",
+    port:                 587,
+    user_name:            ENV['gmail_username'],
+    password:             ENV['gmail_password'],
+    authentication:       "plain",
+    enable_starttls_auto: true
+  }
+
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
